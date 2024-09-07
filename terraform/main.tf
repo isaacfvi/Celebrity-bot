@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "137257-remote-state-terraform-rekproject"
+    bucket  = "137257-remote-state-terraform-celebrity-bot"
     key     = "remote-state"
     region  = "us-east-1"
     profile = "tf-user"
@@ -26,5 +26,6 @@ module "backend" {
 }
 
 module "frontend" {
-  source = "./modules/frontend"
+  source     = "./modules/frontend"
+  comum_tags = var.comum_tags
 }
