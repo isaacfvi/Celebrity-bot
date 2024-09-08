@@ -11,8 +11,8 @@ resource "aws_s3_object" "website" {
 
   etag = filemd5(each.value)
 
-  content_type = endswith(each.key, ".html") ? "text/html" : endswith(each.key, ".css")  ? "text/css" : endswith(each.key, ".js")   ? "application/javascript" : "application/octet-stream"
-  }
+  content_type = endswith(each.key, ".html") ? "text/html" : endswith(each.key, ".css") ? "text/css" : endswith(each.key, ".js") ? "application/javascript" : "application/octet-stream"
+}
 
 
 resource "aws_s3_bucket_website_configuration" "website" {

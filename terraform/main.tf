@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.65.0"
     }
+    archive = {
+      source = "hashicorp/archive"
+      version = "2.5.0"
+    }
   }
   backend "s3" {
     bucket  = "137257-remote-state-terraform-celebrity-bot"
