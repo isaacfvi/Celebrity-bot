@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "website" {
-  bucket = "celebrity-bot"
+  bucket = var.website_name
   tags   = var.comum_tags
 }
 

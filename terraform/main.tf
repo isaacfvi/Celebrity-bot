@@ -26,10 +26,14 @@ provider "aws" {
 
 module "backend" {
   source     = "./modules/backend"
+
+  website_name = var.website_name
   comum_tags = var.comum_tags
 }
 
 module "frontend" {
   source     = "./modules/frontend"
+
+  website_name = var.website_name
   comum_tags = var.comum_tags
 }

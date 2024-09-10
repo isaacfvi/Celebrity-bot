@@ -17,3 +17,26 @@ resource "aws_iam_role" "iam_for_lambda" {
 
   tags = var.comum_tags
 }
+
+resource "aws_iam_policy" "lambda_access_policy" {
+  name        = "LambdaAccessPolicy"
+  
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "bedrock:InvokeModel",  
+          "rekognition:RecognizeCelebrities",   
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_attach_policy" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.lambda_access_policy.arn
+}

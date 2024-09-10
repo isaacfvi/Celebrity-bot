@@ -3,11 +3,10 @@ import json
 
 class Services:
 
-    def __init__ (self, region: str = 'us-east-1', profile: str = 'tf-user'):
-        self.session = boto3.Session(profile_name=profile, region_name=region)
+    def __init__ (self):
         self.model_id = "anthropic.claude-v2"
-        self.rekognition_client = self.session.client('rekognition')
-        self.bedrock_client = self.session.client('bedrock-runtime')
+        self.rekognition_client = boto3.client('rekognition')
+        self.bedrock_client = boto3.client('bedrock-runtime')
 
     def get_celebrity(self, image: bytes):
         try:
@@ -22,7 +21,6 @@ class Services:
             return names
     
         except Exception as e:
-            print(f"An error occurred while recognizing celebrities: {str(e)}")
             return []
     
     def get_completion(self, celebrities: list):
@@ -50,7 +48,6 @@ class Services:
             response_text = model_response["content"][0]["text"]
 
         except Exception as e:
-            print(f"An error occurred while getting completion from the model: {str(e)}")
-            return "An error occurred."
+            return f"Erro enquanto usava bedrock: {str(e)}"
 
         return response_text

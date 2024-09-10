@@ -2,6 +2,12 @@ resource "aws_apigatewayv2_api" "api_gw" {
   name                       = "celebrity-chatbot"
   protocol_type              = "HTTP"
 
+  cors_configuration {
+    allow_origins = ["https://${var.website_name}.s3-website-us-east-1.amazonaws.com"]  
+    allow_methods = ["POST"]
+    allow_headers = ["Content-Type", "Authorization"] 
+  }
+
   tags = var.comum_tags
 }
 
@@ -23,4 +29,17 @@ resource "aws_apigatewayv2_stage" "api_gw" {
   api_id = aws_apigatewayv2_api.api_gw.id
   name   = "fun-fact"
   auto_deploy = true
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gw.arn
+    
+    format = jsonencode({
+      requestId        = "$context.requestId",
+      httpMethod       = "$context.httpMethod",
+      resourcePath     = "$context.resourcePath",
+      status           = "$context.status",
+      responseLength   = "$context.responseLength",
+      integrationError = "$context.integrationErrorMessage"
+    })
+  }
 }
