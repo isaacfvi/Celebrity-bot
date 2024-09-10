@@ -1,27 +1,7 @@
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
-  }
-}
-
 data "archive_file" "lambda" {
   type        = "zip"
   source_dir = var.lambda_path
   output_path = "./zip/lambda_function_payload.zip"
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name               = "iam_for_lambda"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
-
-  tags = var.comum_tags
 }
 
 resource "aws_lambda_function" "lambda" {
@@ -36,4 +16,12 @@ resource "aws_lambda_function" "lambda" {
 
   tags = var.comum_tags
 
+}
+
+resource "aws_lambda_permission" "api_gw" {
+  statement_id = "AllowExecutionFromAPIGateway"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda.function_name
+  principal = "apigateway.amazonaws.com"
+  source_arn = "${aws_apigatewayv2_api.api_gw.execution_arn}/*/*"
 }
