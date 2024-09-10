@@ -4,7 +4,7 @@ def lambda_handler(event, context):
     try:
         body = json.loads(event['body'])
 
-        if(body["id"]):
+        if(body["imagem"]):
             return {
             "statusCode": 200,
             "body": json.dumps({"status": "deu certo mano"})
