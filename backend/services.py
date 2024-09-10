@@ -27,7 +27,7 @@ class Services:
         try:
             celebrities = ", ".join(celebrities)
 
-            prompt = f"Escreva um pequeno parágrafo contando uma curiosidade sobre a(s) celebridade(s) {celebrities} "
+            prompt = f"Compartilhe uma curiosidade interessante sobre {celebrities} de maneira natural."
             
             body = {
                 "anthropic_version": "bedrock-2023-05-31",

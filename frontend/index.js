@@ -14,7 +14,8 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
         const base64Image = reader.result.split(',')[1];
 
         try {
-            const apiResponse = await fetch('https://ftdkp0pevd.execute-api.us-east-1.amazonaws.com/fun-fact/', { // Substitua com sua URL de API
+            responseDiv.textContent = "Aguarde..."
+            const apiResponse = await fetch('https://mbgyizbisi.execute-api.us-east-1.amazonaws.com/fun-fact/', { // Substitua com sua URL de API
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,7 +28,8 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
             }
 
             const data = await apiResponse.json();
-            responseDiv.textContent = data.text; // Exibe o texto retornado pela API
+            console.log(data)
+            responseDiv.textContent = data.fun_fact; // Exibe o texto retornado pela API
 
         } catch (error) {
             responseDiv.textContent = `Erro: ${error.message}`;
