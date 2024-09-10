@@ -9,6 +9,10 @@ terraform {
       source = "hashicorp/archive"
       version = "2.5.0"
     }
+    template = {
+      source = "hashicorp/template"
+      version = "2.2.0"
+    }
   }
   backend "s3" {
     bucket  = "137257-remote-state-terraform-celebrity-bot"
@@ -34,6 +38,9 @@ module "backend" {
 module "frontend" {
   source     = "./modules/frontend"
 
+  depends_on = [ module.backend ]
+
   website_name = var.website_name
   comum_tags = var.comum_tags
+  api_url = module.backend.api_url
 }

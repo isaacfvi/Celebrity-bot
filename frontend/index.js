@@ -15,7 +15,7 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
 
         try {
             responseDiv.textContent = "Aguarde..."
-            const apiResponse = await fetch('https://mbgyizbisi.execute-api.us-east-1.amazonaws.com/fun-fact/', { // Substitua com sua URL de API
+            const apiResponse = await fetch(`${api_url}/`, { // Substitua com sua URL de API
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

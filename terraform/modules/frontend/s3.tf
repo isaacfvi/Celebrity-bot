@@ -1,17 +1,22 @@
+module "template_files" {
+  source = "hashicorp/dir/template"
+  base_dir = "../frontend"
+}
+
 resource "aws_s3_bucket" "website" {
   bucket = var.website_name
   tags   = var.comum_tags
 }
 
 resource "aws_s3_object" "website" {
-  for_each = var.website_files
+  for_each = module.template_files.files
   bucket   = aws_s3_bucket.website.id
   key      = each.key
-  source   = each.value
+  source   = each.key == "index.html" ? null : each.value.source_path
+  content = each.key == "index.html" ? templatefile(each.value.source_path, {API_URL = var.api_url}) : null
+  etag = each.key == "index.html" ? md5(templatefile(each.value.source_path, {API_URL = var.api_url})) : each.value.digests.md5
 
-  etag = filemd5(each.value)
-
-  content_type = endswith(each.key, ".html") ? "text/html" : endswith(each.key, ".css") ? "text/css" : endswith(each.key, ".js") ? "application/javascript" : "application/octet-stream"
+  content_type = each.value.content_type
 }
 
 

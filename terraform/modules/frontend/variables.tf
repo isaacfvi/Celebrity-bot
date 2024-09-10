@@ -6,11 +6,6 @@ variable "website_name" {
   type    = string
 }
 
-variable "website_files" {
-  type = map(string)
-  default = {
-    "index.html" = "../frontend/index.html"
-    "index.js"   = "../frontend/index.js"
-    "style.css"  = "../frontend/style.css"
-  }
+variable "api_url" {
+  type = string
 }
