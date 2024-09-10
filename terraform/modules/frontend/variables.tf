@@ -2,6 +2,10 @@ variable "comum_tags" {
   type = map(string)
 }
 
+variable "website_name" {
+  type    = string
+}
+
 variable "website_files" {
   type = map(string)
   default = {
