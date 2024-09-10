@@ -3,7 +3,7 @@ resource "aws_apigatewayv2_api" "api_gw" {
   protocol_type              = "HTTP"
 
   cors_configuration {
-    allow_origins = ["https://${var.website_name}.s3-website-us-east-1.amazonaws.com"]  
+    allow_origins = ["http://${var.website_name}.s3-website-us-east-1.amazonaws.com"]  
     allow_methods = ["POST"]
     allow_headers = ["Content-Type", "Authorization"] 
   }
