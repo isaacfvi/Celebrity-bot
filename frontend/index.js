@@ -44,7 +44,7 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
             }
 
             const data = await apiResponse.json();
-            responseDiv.textContent = data.fun_fact; // Exibe o texto retornado pela API
+            responseDiv.textContent = data.fun_fact; 
 
         } catch (error) {
             responseDiv.textContent = "Parece que o bot está enfrentando problemas!";
