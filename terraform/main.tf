@@ -15,10 +15,8 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "137257-remote-state-terraform-celebrity-bot"
-    key     = "remote-state"
-    region  = "us-east-1"
     profile = "tf-user"
+    region = "us-east-1"
   }
 
 }
