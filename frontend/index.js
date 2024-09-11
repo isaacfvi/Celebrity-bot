@@ -1,3 +1,19 @@
+document.getElementById('fileInput').addEventListener('change', function() {
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const fileLabel = document.querySelector('.file-label');
+    
+    if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block'; // Exibe a imagem
+            fileLabel.style.marginTop = '10px'; // Move o ícone para baixo
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    }
+});
+
 document.getElementById('uploadButton').addEventListener('click', async () => {
     const fileInput = document.getElementById('fileInput');
     const responseDiv = document.getElementById('response');
@@ -14,8 +30,8 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
         const base64Image = reader.result.split(',')[1];
 
         try {
-            responseDiv.textContent = "Aguarde..."
-            const apiResponse = await fetch(`${api_url}/`, { // Substitua com sua URL de API
+            responseDiv.textContent = "Enviando imagem...";
+            const apiResponse = await fetch(`${api_url}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,15 +40,14 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
             });
 
             if (!apiResponse.ok) {
-                throw new Error('Erro na requisição para a API');
+                throw new Error('Parece que o bot está enfrentando problemas!');
             }
 
             const data = await apiResponse.json();
-            console.log(data)
             responseDiv.textContent = data.fun_fact; // Exibe o texto retornado pela API
 
         } catch (error) {
-            responseDiv.textContent = `Erro: ${error.message}`;
+            responseDiv.textContent = "Parece que o bot está enfrentando problemas!";
         }
     };
 
