@@ -15,19 +15,19 @@ class Services:
                 'Bytes': image
             })
 
-            celebrities = response.get("CelebrityFaces", [])
+            celebrities = response.get("CelebrityFaces", ["Celebridades não encontradas"])
             names = [celebrity.get("Name") for celebrity in celebrities]
 
             return names
     
         except Exception as e:
-            return []
+            return ["Celebridades não encontradas"]
     
     def get_completion(self, celebrities: list):
         try:
             celebrities = ", ".join(celebrities)
 
-            prompt = f"Compartilhe uma curiosidade interessante sobre {celebrities} de maneira natural."
+            prompt = f"Compartilhe uma curiosidade interessante sobre {celebrities} de maneira natural e sem sair do assunto celebridade"
             
             body = {
                 "anthropic_version": "bedrock-2023-05-31",
