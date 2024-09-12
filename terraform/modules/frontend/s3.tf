@@ -57,6 +57,10 @@ resource "aws_s3_bucket_acl" "website" {
 resource "aws_s3_bucket_policy" "website" {
   bucket = aws_s3_bucket.website.id
 
+  depends_on = [
+    aws_s3_bucket_acl.website
+  ]
+
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
