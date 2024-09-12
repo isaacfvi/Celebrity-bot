@@ -94,11 +94,11 @@ Ao acessar o website estático:
 
 Selecione uma Imagem cliquando no ícone de nuvem e escolha uma imagem do seu sistema.
 
-![Exemplo1](images/exemple1.png)
+![Exemplo1](images/Exemple1.png)
 
 Envie a Imagem cliquando no botão "Enviar" para processar a imagem. Aguarde enquanto o bot realiza o reconhecimento e gera o texto correspondente.
 
-![Exemplo2](images/exemple2.png)
+![Exemplo2](images/Exemple2.png)
 
 ### API
 
